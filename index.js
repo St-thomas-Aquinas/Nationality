@@ -11,12 +11,10 @@ submit.addEventListener("click", async (e) => {
   console.log(input.value);
   try {
     const reponse = await fetch(
-      `https://api.nationalize.io/?name=njeri`
+      `https://api.nationalize.io/?name=${input.value}`
     );
     result = await reponse.json();
     advice0 = result;
-    alert(result)
-    advice1 = JSON.stringify(advice0);
     country_ID = advice0["country"][0]["country_id"];
 
     probality = Number(advice0["country"][0]["probability"]);
