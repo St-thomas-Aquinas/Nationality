@@ -13,31 +13,30 @@ submit.addEventListener("click", async (e) => {
     const reponse = await fetch(
       `https://api.nationalize.io/?name=${input.value}`
     );
+    feedback1.textContent = "please wait...";
     result = await reponse.json();
     advice0 = result;
     country_ID = advice0["country"][0]["country_id"];
 
     probality = Number(advice0["country"][0]["probability"]);
-    probalityPercent = probality *100 
+    probalityPercent = probality * 100;
 
-    loading.textContent = " please wait...";
     submit.setAttribute("disabled", true);
     advice = result.slips;
     advice1 = JSON.stringify(result);
-    alert(advice1)
+    alert(advice1);
 
     var getCountryNames = new Intl.DisplayNames(["en"], { type: "region" });
     //console.log(getCountryNames.of(a));
     const country_name = getCountryNames.of(country_ID);
-  
-    feedback1.textContent= input.value;
+
+    feedback1.textContent = input.value;
     feedback2.textContent = country_name;
     feedback2.textContent = math.trunc(probalityPercent);
   } catch (e) {
-   // feedback.textContent = " Something went wrong , try Again";
+    feedback2.textContent = " Something went wrong , try Again";
     submit.removeAttribute("disabled");
   } finally {
     submit.removeAttribute("disabled");
-    
   }
 });
